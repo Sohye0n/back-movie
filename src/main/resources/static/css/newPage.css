@@ -1,0 +1,124 @@
+.nav{
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+    /*background-color:rgb(48, 46, 44);*/
+}
+
+.nav .logo img{
+    width:100px
+}
+
+.nav .nav_but a{
+    text-decoration:none;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: black;
+}
+
+
+.form{
+    background: url(../images/mainpage/background.jpg);
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height:600px;
+}
+
+.header{
+    height: 100px;
+    display:flex;
+    margin-top: 70px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.header h1{
+    font-size:40px;
+    letter-spacing:0.05em;
+    margin-top:20px;
+    margin-bottom:40px;
+}
+
+.form{
+    display:flex;
+    flex-direction: column;
+    padding-left:20px;
+}
+
+.hor{
+    display:flex;
+    align-items:center;
+}
+
+.hor .sub button{
+    margin: 1rem;
+    animation: jittery 4s infinite;
+    margin-left: 400px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+@keyframes jittery {
+5%, 50% {
+    transform: scale(1);
+}
+10% {
+    transform: scale(0.9);
+}
+15% {
+    transform: scale(1.15);
+}
+20% {
+    transform: scale(1.15) rotate(-5deg);
+}
+25% {
+    transform: scale(1.15) rotate(5deg);
+}
+30% {
+    transform: scale(1.15) rotate(-3deg);
+}
+35% {
+    transform: scale(1.15) rotate(2deg);
+}
+40% {
+    transform: scale(1.15) rotate(0);
+}
+}
+
+.q1 .ans input{
+    outline:none;
+}
+
+
+.question{
+    font-size:20px;
+}
+
+.ans{
+    font-size:20px;
+}
+
+.ans .option{
+    font-size:20px;
+}
+
+.ans select{
+    font-size:20px;
+    border:none;
+}
+
+.q3 .ans{
+    vertical-align: top;
+}
+
+.q3 .ans textarea{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline:none;
+}

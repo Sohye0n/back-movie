@@ -1,5 +1,6 @@
 package com.movieworld.movieboard.controller;
 
+import com.movieworld.movieboard.DTO.NodeDTO;
 import com.movieworld.movieboard.Repository.BoardRepository;
 import com.movieworld.movieboard.Service.BoardService;
 import com.movieworld.movieboard.Service.NodeEditService;
@@ -15,7 +16,6 @@ import com.movieworld.movieboard.domain.Node;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Controller
 public class NetworkController {

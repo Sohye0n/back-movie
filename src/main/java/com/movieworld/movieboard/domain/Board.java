@@ -12,7 +12,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @SequenceGenerator(
         name="BoardID_Sequence_Generator",

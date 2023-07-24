@@ -46,10 +46,18 @@ public class HomeController {
 
     @GetMapping("/Boardlist")
     String Boardlist(HttpServletRequest request, Model model){
-        int pn= Integer.parseInt(request.getParameter("pn"));
+        Long pn= Long.valueOf(request.getParameter("pn"));
         List boardlist=boardService.ReturnBoard(pn);
         model.addAttribute("boardlist",boardlist);
-        model.addAttribute("pn",pn);
+        model.addAttribute("pn",pn+1);
+        return "BoardList";
+    }
+
+    @GetMapping("/Boardlist/{no}")
+    String Boardlist(@PathVariable("no")Long pn, Model model){
+        List boardlist=boardService.ReturnBoard(pn);
+        model.addAttribute("boardlist",boardlist);
+        model.addAttribute("pn",pn+1);
         return "BoardList";
     }
 

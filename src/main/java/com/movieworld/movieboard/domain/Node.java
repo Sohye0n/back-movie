@@ -3,14 +3,10 @@ package com.movieworld.movieboard.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class Node {
     @Id
@@ -20,10 +16,10 @@ public class Node {
 
     @ManyToOne
     @JoinColumn(name="Board_ID")
-    private Board board;
+    private Board Board;
 
     @Column(name="IS_HUB")
-    private boolean isHub;
+    private boolean IsHub;
 
     @Column(name="PHOTOURL",length=500)
     private String PhotoUrl;
@@ -32,21 +28,25 @@ public class Node {
     private String AuthorID;
 
     @Column(name="NAME",length=40)
-    private String name;
+    private String Name;
     @Column(name="DETAILS",length=500)
-    private String details;
-
-/*    public Node(Board board, String id, boolean isHub, String photoUrl, String writer, String bob, String details){
-
-    }*/
+    private String Details;
 
     public Node(@NotNull String id, Board board, boolean isHub, String photoUrl, String authorID, String name, String details) {
         this.id = id;
-        this.board=board;
-        this.isHub = isHub;
+        this.Board =board;
+        this.IsHub = isHub;
         this.PhotoUrl = photoUrl;
         this.AuthorID = authorID;
-        this.name = name;
-        this.details = details;
+        this.Name = name;
+        this.Details = details;
+    }
+
+    public void update(boolean isHub, String photoUrl, String authorID, String name, String details){
+        this.IsHub =isHub;
+        this.PhotoUrl=photoUrl;
+        this.AuthorID=authorID;
+        this.Name =name;
+        this.Details =details;
     }
 }

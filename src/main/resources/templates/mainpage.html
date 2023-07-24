@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="./css/mainstyle.css"/>
 </head>
 <body>
-    <h1>Movie_board_service</h1>
-    <p>
-        <a href="/members/new">회원 가입</a>
-        <a href="/members">회원 목록</a>
-        <a href="/members/del">가입 탈퇴</a>
-        <a href="/Boards">네트워크 페이지 게시판</a>
-        <a href="/newBoard">새 네트워크 만들기</a>
-    </p>
+    <div class="nav">
+        <div class="logo">
+            <img src="./images/logo.png" alt="">
+        </div>
+        <div class="nav_but">
+            <a href="/members/new">로그인</a>
+            <a href="/Boards">둘러보기</a>
+        </div>
+    </div>
+
+    <section class="header">
+        <div class="title">
+            <!--<img src="./images/logo.png" alt="">-->
+            <h1>create your own Family Tree!</h1>
+            <p>영화, 드라마, 소설... 좋아하는 작품의 세계관을 정리해보세요</p>
+            <button onclick="location.href='/newBoard'">지금 바로 시작하세요</button>
+        </div>
+    </section>
+
+
 </body>
 </html>

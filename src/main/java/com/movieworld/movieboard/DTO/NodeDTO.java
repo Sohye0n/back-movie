@@ -1,4 +1,4 @@
-package com.movieworld.movieboard.controller;
+package com.movieworld.movieboard.DTO;
 
 import com.movieworld.movieboard.domain.Board;
 import lombok.Getter;
@@ -9,16 +9,16 @@ import lombok.Setter;
 public class NodeDTO {
     private int type;
     private String id;
-
+    private Board board;
     private boolean isHub;
     private String PhotoUrl;
+    private String AuthorID;
     private String name;
     private String details;
     public NodeDTO(){
     }
-    //String author;
-    private Board board;
-    private String AuthorID;
+
+
     public NodeDTO(int type, String id,boolean isHub, String PhotoUrl, String name, String details){
         this.type=type;
         this.id=id;

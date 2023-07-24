@@ -28,12 +28,12 @@ public class BoardService {
         return board.getId();
     }
 
-    public List<Board> ReturnBoard(int pn){
+    public List<Board> ReturnBoard(Long pn){
         List<Board>boardlist=boardRepository.findAll();
         List<Board>returnList=new ArrayList<Board>();
-        int size= boardlist.size();
+        Long size= Long.valueOf(boardlist.size());
         if(size>5*pn) size=5*pn;
-        for(int i=(pn-1)*5; i<size; i++) returnList.add(boardlist.get(i));
+        for(Long i=(pn-1)*5; i<size; i++) returnList.add(boardlist.get(i.intValue()));
         return returnList;
     }
 
