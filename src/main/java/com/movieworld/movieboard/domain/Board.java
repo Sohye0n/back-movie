@@ -47,7 +47,7 @@ public class Board {
     @Column(name="ISPRIVATE")
     private boolean isPrivate;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="node")
     private List<Node> nodes=new ArrayList<>();
 

@@ -75,8 +75,6 @@ let nodes = null;
       function init(){
       console.log(nodeList.length);
       console.log(BoardID);
-      console.log(tester.id);
-      console.log(nodeList[0]);
         setDefaultNodes();
         draw();
         network.on("click", function(params){

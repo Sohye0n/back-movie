@@ -7,16 +7,24 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 
         <!--html2canvas 라이브러리 가져오기-->
-        <link href="/css/network_view.css" rel="stylesheet">
-
-        <!--분리된 js파일에 서버에서 받은 값 넘기기-->
-        <script>
-                const BoardID=[[${BoardID}]];
-                const nodeList = /*[[${#json.dumps(nodeList)}]]*/ [];
-        </script>
+        <link href="/css/network_view.css" rel="stylesheet">pt>
 
         <! vis.js의 파일 참조 >
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+
+        <!--분리된 js파일에 서버에서 받은 값 넘기기-->
+        <script th:inline="javascript">
+          const BoardID = [[${BoardID}]];
+          var nodeList = /*[[${nodeList}]]*/[];
+
+          var arr = []; // 새로운 배열을 생성하거나 기존에 선언된 배열을 사용하면 됩니다.
+
+          nodeList.forEach(function(node) {
+            // 각 노드를 순환하며 새로운 배열(arr)에 원하는 데이터를 삽입합니다.
+            // 예시로 노드의 이름을 새로운 배열에 삽입하는 경우입니다.
+            arr.push(node.id); // 이렇게 node의 속성에 접근하여 원하는 데이터를 추출하여 배열에 push할 수 있습니다.
+          });
+        </script>
         <script type="text/javascript" src="/js/network_view.js"></script>
     </head>
 
@@ -48,5 +56,11 @@
     <div id="nodeInfo">
         <div id="name"></div>
     </div>
+
+    <div th:each="nodes : ${nodeList}">
+        <div th:text="${nodes.id}"></div>
+    </div>
 </body>
+
+
 </html>

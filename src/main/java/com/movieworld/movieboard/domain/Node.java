@@ -14,7 +14,7 @@ public class Node {
     @Column(name="ID")
     private String id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="Board_ID")
     private Board Board;
 

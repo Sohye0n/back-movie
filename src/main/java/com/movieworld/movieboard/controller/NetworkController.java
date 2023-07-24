@@ -40,11 +40,12 @@ public class NetworkController {
         Node node1=new Node("0", board,false, "minions_bob.jpg","writer","bob","it's minions bob!");
         Node node2=new Node("1", board,false,null,"writer","second","this is second node");
         Node node3=new Node("2", board,false,null,"writer","third","this is third node");
-        ArrayList<Node> nodes=new ArrayList<>();
-        nodes.add(node1);
-        nodes.add(node2);
-        nodes.add(node3);
-        model.addAttribute("nodeList",nodes);
+        ArrayList<Node> nodess=new ArrayList<>();
+        nodess.add(node1);
+        nodess.add(node3);
+        ArrayList<Integer> nodes=new ArrayList<Integer>();
+        nodes.add(1); nodes.add(2);
+        model.addAttribute("nodeList",nodess);
         model.addAttribute("BoardID",BoardID);
         redirectAttributes.addAttribute("BoardID",BoardID);
         return "network_sample";

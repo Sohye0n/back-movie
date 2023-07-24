@@ -4,12 +4,14 @@ import com.movieworld.movieboard.DTO.BoardDTO;
 import com.movieworld.movieboard.Repository.BoardRepository;
 import com.movieworld.movieboard.domain.Board;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class BoardService {
     private final BoardRepository boardRepository;
     public BoardService(BoardRepository boardRepository) {
