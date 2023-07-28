@@ -1,6 +1,7 @@
 package com.movieworld.movieboard.controller;
 
 import com.movieworld.movieboard.DTO.BoardDTO;
+import com.movieworld.movieboard.DTO.MemberDTO;
 import com.movieworld.movieboard.Service.BoardService;
 import com.movieworld.movieboard.domain.Board;
 import jakarta.servlet.http.HttpServletRequest;

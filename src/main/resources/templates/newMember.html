@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang=""en>
+<head>
+    <meta charset="UTF-8">
+    <title>영화 정보 입력</title>
+    <link rel="stylesheet" href="./css/newpage.css"/>
+</head>
+<body>
+
+<div class="nav">
+    <div class="logo">
+        <img src="logo.png" alt="">
+    </div>
+    <div class="nav_but">
+        <a href="/members/new">로그인</a>
+        <a href="/Boards">둘러보기</a>
+    </div>
+</div>
+
+<form action="/LoginForm" method="post">
+    <span class="form">
+
+      <section class="header">
+        <h1>작품 정보 입력</h1>
+      </section>
+
+      <div class="q1">
+        <label for="id">
+          <span class="question">ID : </span>
+          <span class="ans">
+            <input type="text" id="id" name="id" required style="border-left:none; border-right: none; border-top: none;"><br><br>
+          </span>
+        </label>
+      </div>
+
+      <div class="q2">
+        <label for="pw">
+          <span class="question">Password : </span>
+          <span class="ans">
+            <input type="text" id="pw" name="pw" required style="border-left:none; border-right: none; border-top: none;"><br><br>
+          </span>
+        </label>
+      </div>
+
+      <div class="sub">
+            <button type="submit">login</button>
+      </div>
+
+
+    </span>
+</form>
+</body>
+</html>

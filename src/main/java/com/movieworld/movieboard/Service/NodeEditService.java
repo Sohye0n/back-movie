@@ -5,6 +5,7 @@ import com.movieworld.movieboard.Repository.NodeRepository;
 import com.movieworld.movieboard.DTO.NodeDTO;
 import com.movieworld.movieboard.domain.Board;
 import com.movieworld.movieboard.domain.Node;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +13,10 @@ import java.util.List;
 
 @Service
 public class NodeEditService {
+    @Autowired
     private final NodeRepository nodeRepository;
+
+    @Autowired
     private final BoardRepository boardRepository;
 
     public NodeEditService(NodeRepository nodeRepository, BoardRepository boardRepository) {
