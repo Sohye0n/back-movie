@@ -19,7 +19,8 @@ public class LoginLimitFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        String username = req.getParameter("username");
+        String username = req.getParameter("id");
+        System.out.println(username);
 
         if (username != null) {
             //Integer은 wrapper 클래스.

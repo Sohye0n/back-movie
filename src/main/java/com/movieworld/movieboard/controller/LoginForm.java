@@ -1,4 +1,4 @@
-package com.movieworld.movieboard.Form;
+package com.movieworld.movieboard.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 @AllArgsConstructor
 public class LoginForm {
     @NotNull
-    private String id;
+    private String Nickname;
 
     @NotNull
     private String pw;
