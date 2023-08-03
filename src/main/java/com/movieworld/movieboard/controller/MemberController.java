@@ -41,7 +41,7 @@ public class MemberController {
     }
 
     @PostMapping("/LoginForm")
-    public ResponseEntity<TokenDTO> processingLoginForm(@ModelAttribute MemberDTO memberDTO) throws Exception {
+    public ResponseEntity<TokenDTO> processingLoginForm(@RequestBody MemberDTO memberDTO) throws Exception {
         System.out.println("loginform");
         System.out.println(memberDTO.getNickname());
         System.out.println(memberDTO.getPw());
