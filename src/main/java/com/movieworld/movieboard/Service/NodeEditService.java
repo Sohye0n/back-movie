@@ -25,8 +25,10 @@ public class NodeEditService {
     }
 
     public void EditNode(List<NodeDTO> nodelist, Long BoardID) throws Exception {
+        System.out.println("EditNode is running...");
         for(int i=0; i<nodelist.size(); i++){
             NodeDTO curNode=nodelist.get(i);
+            System.out.println(curNode.getId());
             int type=curNode.getType();
 
             //add

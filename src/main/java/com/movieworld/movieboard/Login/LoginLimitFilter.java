@@ -1,4 +1,4 @@
-package com.movieworld.movieboard.Filter;
+package com.movieworld.movieboard.Login;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -10,7 +10,6 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.*;
 
 @Entity
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,15 +33,16 @@ public class Member {
             name="member_authority",
             joinColumns = {@JoinColumn(name="member_id",referencedColumnName = "member_id")},
             inverseJoinColumns = {@JoinColumn(name="authority_name",referencedColumnName = "authority_name")})
-    private Set<Authority> authorities;
+    private Set<Authority> authorities=new HashSet<>();
 
     public Member(String subject, String s, Collection<? extends GrantedAuthority> authorities) {
     }
 
     @Builder
-    public Member(String id, String pw) {
-        this.nickname =id;
+    public Member(String id, String pw,Authority authority){
+        this.nickname=id;
         this.pw=pw;
+        this.authorities.add(authority);
     }
 
 }

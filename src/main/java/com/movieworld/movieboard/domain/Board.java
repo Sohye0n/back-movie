@@ -51,6 +51,10 @@ public class Board {
     @JoinColumn(name="node")
     private List<Node> nodes=new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="edge")
+    private List<Edge> edges=new ArrayList<>();
+
     public Board(String title, String content, boolean isprivate) {
         this.title=title;
         this.content=content;

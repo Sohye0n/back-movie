@@ -79,9 +79,9 @@ public class TokenProvider implements InitializingBean {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        //이러면 기존 멤버도 새로 로그인할 때마다 DB에 추가되는 듯..? 확인해보고 고쳐야.
         Member principal=new Member(claims.getSubject(),"", authorities);
         System.out.println(claims.getSubject());
+        System.out.println("auth : "+authorities);
         //일반적인 세션 기반의 id/pw 인증방식이었다면 token에 pw가 담겼을 것...?
         //jwt 로그인에서는 발급받은 jwt 토큰인 token을 기반으로 인증하기 때문에 credential에 token이 담김
         //얘는 인증받은 토큰을 리턴함.

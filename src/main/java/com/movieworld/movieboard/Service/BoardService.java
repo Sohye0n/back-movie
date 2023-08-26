@@ -1,6 +1,7 @@
 package com.movieworld.movieboard.Service;
 
 import com.movieworld.movieboard.DTO.BoardDTO;
+import com.movieworld.movieboard.DTO.Pagination;
 import com.movieworld.movieboard.Repository.BoardRepository;
 import com.movieworld.movieboard.domain.Board;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,22 @@ public class BoardService {
         if(size>5*pn) size=5*pn;
         for(Long i=(pn-1)*5; i<size; i++) returnList.add(boardlist.get(i.intValue()));
         return returnList;
+    }
+
+    public Pagination pngn(Long pn){
+        List<Board>boardList=boardRepository.findAll();
+        Pagination pngn=new Pagination();
+        int blockcnt=boardList.size()/5+1;
+        int curblock= Math.toIntExact(pn);
+
+        pngn.setEndPage(5);
+        if(curblock==1) pngn.setPrevBlock(1);
+        else pngn.setPrevBlock(curblock-1);
+
+        pngn.setNextBlock(curblock+1);
+        pngn.setStartPage(1);
+        pngn.setTotalPageCnt(blockcnt);
+        return pngn;
     }
 
     public Optional<Board> FindById(Long id){

@@ -30,7 +30,7 @@ public class MemberController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String Login(HttpServletRequest httpServletRequest, Model model){
         System.out.println("login");
         String errno=httpServletRequest.getParameter("error");
@@ -40,46 +40,14 @@ public class MemberController {
         return "loginexceed";
     }
 
-    @PostMapping("/LoginForm")
-    public ResponseEntity<TokenDTO> processingLoginForm(@RequestBody MemberDTO memberDTO) throws Exception {
-        System.out.println("loginform");
-        System.out.println(memberDTO.getNickname());
-        System.out.println(memberDTO.getPw());
-        boolean isOurMember= memberLoginService.Login(memberDTO);
-
-        //회원이 맞다면 jwt 토큰을 발행함
-
-            //일단 usernamepasswordtoken을 발행하는데, 이는 아직 권한 부여가 되지 않은 토큰.
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=new UsernamePasswordAuthenticationToken(memberDTO.getNickname(),memberDTO.getPw());
-            System.out.println("UsernamePasswordToken created");
-
-            //이 토큰에게 권한을 부여해줌
-            Authentication authentication=authenticationManagerBuilder.getObject().authenticate(usernamePasswordAuthenticationToken);
-            System.out.println("authentication succ");
-            //context holder 에 이 유저에 대한 정보를 저장함.
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            //이제 권한을 부여받은 이 토큰을 가지고 jwt를 생성해줌.
-            String jwt= tokenProvider.createToken(authentication);
-            System.out.println(jwt);
-
-            HttpHeaders httpHeaders=new HttpHeaders();
-            httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER,"Bearer"+jwt);
-
-            return new ResponseEntity<>(new TokenDTO(jwt),  httpHeaders, HttpStatus.OK);
+    @PostMapping("/join")
+    public ResponseEntity join(@RequestBody MemberDTO memberDTO) throws Exception {
+        if(memberLoginService.check(memberDTO)){
+            memberLoginService.join(memberDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
-    @GetMapping("/join")
-    public String Join(HttpServletRequest httpServletRequest, Model model){
-        return "Join";
-    }
-
-    @PostMapping("/JoinForm")
-    public String JoinForm(MemberDTO memberDTO){
-        System.out.println(memberDTO.getNickname());
-        System.out.println(memberDTO.getPw());
-        memberLoginService.Join(memberDTO);
-        return "redirect:/login";
-    }
 
 }

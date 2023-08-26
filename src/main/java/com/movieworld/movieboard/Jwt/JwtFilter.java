@@ -49,13 +49,17 @@ public class JwtFilter extends GenericFilterBean {
 
     private String ResolveToken(HttpServletRequest httpServletRequest) {
         logger.debug("JwtFilter-ResolveToken");
+        System.out.println("JWTFilter-resolvetoken");
         String bearerToken= httpServletRequest.getHeader(AUTHORIZATION_HEADER);
+        System.out.println(bearerToken);
         //jwt 토큰은 bearer로 시작함
         if(StringUtils.hasText(bearerToken)&&bearerToken.startsWith("Bearer ")){
             logger.debug("JwtFilter-ResolveToken:succeed");
+            System.out.println("JWTFilter-ResolveToken:succeed");
             //bearer 뒤부터 유의미한 정보이기 때문에
             return bearerToken.substring(7);
         }
+        System.out.println("JWTFilter-Resolvetoken:fail");
         return null;
     }
 }
