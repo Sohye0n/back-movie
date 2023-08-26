@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/movie_db?characterEncoding=UTF-8&serverTimezone=UTC
-    username: //?? mariadb ???? (?? root?)
-    password: //?? mariadb ????
+    username: root
+    password: *****
 
   jpa:
     hibernate:
@@ -13,6 +13,11 @@ spring:
         format_sql: true #To beautify or pretty print the SQL
         show_sql: true #show sql
     open-in-view: false
+
+jwt:
+  header: Authorization
+  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+  token-validity-in-seconds: 86400
 
 logging:
   level:

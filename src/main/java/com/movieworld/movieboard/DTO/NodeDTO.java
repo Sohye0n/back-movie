@@ -1,19 +1,39 @@
-package com.movieworld.movieboard.controller;
+package com.movieworld.movieboard.DTO;
 
-public class Node {
+import com.movieworld.movieboard.domain.Board;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class NodeDTO {
+    private int type;
     private String id;
-    //long boardId;
+    private Board board;
     private boolean isHub;
     private String PhotoUrl;
+    private String AuthorID;
     private String name;
     private String details;
-    //String author;
-    Node(String id, boolean isHub, String PhotoUrl, String name, String details){
+    public NodeDTO(){
+    }
+
+
+    public NodeDTO(int type, String id,boolean isHub, String PhotoUrl, String name, String details){
+        this.type=type;
         this.id=id;
         this.isHub=isHub;
         this.PhotoUrl=PhotoUrl;
         this.name=name;
         this.details=details;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getId() {
@@ -23,7 +43,6 @@ public class Node {
     public void setId(String id) {
         this.id = id;
     }
-
 
     public boolean isHub() {
         return isHub;
