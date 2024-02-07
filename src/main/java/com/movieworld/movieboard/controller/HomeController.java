@@ -40,7 +40,7 @@ public class HomeController {
     @GetMapping("/Boardlist/{no}")
     @ResponseBody
     Map<String, Object> boardList(@PathVariable("no") Long pn) {
-        List<Board> boardList = boardService.ReturnBoard(pn);
+        List<BoardDTO> boardList = boardService.ReturnBoard(pn);
 
         Map<String, Object> response = new HashMap<>();
         response.put("data", boardList);

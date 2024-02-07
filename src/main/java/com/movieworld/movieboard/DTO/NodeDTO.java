@@ -1,79 +1,41 @@
 package com.movieworld.movieboard.DTO;
 
 import com.movieworld.movieboard.domain.Board;
+import com.movieworld.movieboard.domain.Node;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class NodeDTO {
-    private int type;
-    private String id;
+    private Long id;
     private Board board;
     private boolean isHub;
-    private String PhotoUrl;
-    private String AuthorID;
+    private String photoUrl;
     private String name;
     private String details;
+    private int type;
     public NodeDTO(){
     }
 
+    public NodeDTO(Long id, Boolean isHub, String photoUrl, String name, String details){
+        this.id=id;
+        this.board=null;
+        this.isHub=isHub;
+        this.photoUrl=photoUrl;
+        this.name=name;
+        this.details=details;
+        this.board=null;
+        this.type=-1;
+    }
 
-    public NodeDTO(int type, String id,boolean isHub, String PhotoUrl, String name, String details){
+    public NodeDTO(int type, Long id,boolean isHub, String photoUrl, String name, String details){
         this.type=type;
         this.id=id;
         this.isHub=isHub;
-        this.PhotoUrl=PhotoUrl;
+        this.photoUrl =photoUrl;
         this.name=name;
         this.details=details;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public boolean isHub() {
-        return isHub;
-    }
-
-    public void setHub(boolean hub) {
-        isHub = hub;
-    }
-
-    public String getPhotoUrl() {
-        return PhotoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        PhotoUrl = photoUrl;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
     }
 
 }
