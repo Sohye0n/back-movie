@@ -2,11 +2,13 @@ package com.movieworld.movieboard.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class ReComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,10 @@ public class ReComment {
     public Board board;
 
     @ManyToOne
+    @JoinColumn(name="RefId")
+    public Member refWriter;
+
+    @ManyToOne
     @JoinColumn(name="WriterId")
     public Member writer;
 
@@ -36,10 +42,11 @@ public class ReComment {
     @Column(name="isDeleted")
     public Boolean isDeleted;
 
-    public ReComment(Comment rootComment, Long cnt, Board board, Member writer, String content, LocalDateTime createdAt, Boolean isDeleted){
+    public ReComment(Comment rootComment, Long cnt, Board board, Member refWriter, Member writer, String content, LocalDateTime createdAt, Boolean isDeleted){
         this.rootComment=rootComment;
         this.cnt=cnt;
         this.board=board;
+        this.refWriter=refWriter;
         this.writer=writer;
         this.content=content;
         this.createdAt=createdAt;

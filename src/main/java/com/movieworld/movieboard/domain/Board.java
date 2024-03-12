@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@IdClass(BoardId.class)
 @Getter
 @NoArgsConstructor
 public class Board {
@@ -58,6 +57,7 @@ public class Board {
     private List<Comment> comments=new ArrayList<>();
 
     public Board(Long tmdbid, Member writer, String title, LocalDateTime now, LocalDateTime localDateTime, String content, String boardDTOContent, int i, boolean isprivate, Boolean isTv) {
+        this.writer=writer;
         this.createdAt=LocalDateTime.now();
         this.updatedAt=LocalDateTime.now();
         this.tmdbId =tmdbid;
@@ -65,6 +65,7 @@ public class Board {
         this.content=content;
         this.isPrivate=isprivate;
         this.views=0;
+        this.isTv=isTv;
     }
 
 }

@@ -48,21 +48,40 @@ public class CommentService {
         return boardRepository.findById(boardId).orElseThrow();
     }
 
-    public void addComment(CommentDTO commentDTO, Long boardId){
+    private Member getRefWriter(String nickname){
+        return memberRepository.findByNickname(nickname);
+    }
+
+    public CommentDTO addComment(CommentDTO commentDTO, Long boardId){
         Board board=getBoard(boardId);
         Member writer=getWriter();
+        System.out.println(writer.getNickname());
 
         //댓글
         if(commentDTO.rootId<0){
             Comment comment=new Comment(0L,board,writer,commentDTO.getContent(),LocalDateTime.now(),false);
+            CommentDTO newCommentDTO=new CommentDTO(comment.getCommentId(), (long) -1, (long) -1,null,comment.getWriter().getNickname(),comment.getContent(),comment.getCreatedAt(),comment.getIsDeleted(),comment.getBoard().getBoardId());
             commentRepository.save(comment);
+            return newCommentDTO;
         }
 
         //대댓글
         else{
             Comment rootComment=commentRepository.findById(commentDTO.getRootId()).orElseThrow();
-            ReComment reComment=new ReComment(rootComment, (long) rootComment.getReComments().size(),board,writer,commentDTO.getContent(),LocalDateTime.now(),false);
+            ReComment reComment=new ReComment(rootComment, (long) rootComment.getReComments().size(),board,getRefWriter(commentDTO.getRefWriter()),getWriter(),commentDTO.getContent(),LocalDateTime.now(),false);
             reCommentRepository.save(reComment);
+            CommentDTO newCommentDTO = new CommentDTO(
+                    reComment.getCommentId(),
+                    reComment.getRootComment().getCommentId(),
+                    reComment.getCnt(),
+                    reComment.getRefWriter().getNickname(),
+                    reComment.getWriter().getNickname(),
+                    reComment.getContent(),
+                    reComment.getCreatedAt(),
+                    reComment.getIsDeleted(),
+                    reComment.getBoard().getBoardId()
+            );
+            return newCommentDTO;
         }
     }
 
@@ -87,24 +106,72 @@ public class CommentService {
         Board board=boardRepository.findById(boardId).orElseThrow();
         List<CommentDTO> commentDTOs=new ArrayList<CommentDTO>();
         List<Comment> comments=commentRepository.findAllinBoard(boardId);
+        System.out.println(comments.size());
         for (Comment comment:comments) {
+            System.out.println("here");
             //댓글 추가
-            CommentDTO commentDTO=new CommentDTO(comment.getCommentId(), (long) -1, (long) -1,comment.getWriter(),comment.getContent(),comment.getCreatedAt(),comment.getIsDeleted());
+            CommentDTO commentDTO=new CommentDTO(comment.getCommentId(), (long) -1, (long) -1,null,comment.getWriter().getNickname(),comment.getContent(),comment.getCreatedAt(),comment.getIsDeleted(),comment.getBoard().getBoardId());
             commentDTOs.add(commentDTO);
 
             //대댓글 추가
-            comment.getReComments().stream().
-                    map(reComment -> new CommentDTO(
-                            reComment.getCommentId(),
-                            reComment.getRootComment().getCommentId(),
-                            reComment.getCnt(),
-                            reComment.getWriter(),
-                            reComment.getContent(),
-                            reComment.getCreatedAt(),
-                            reComment.getIsDeleted()
-                    ))
-            ;
+            comment.getReComments().forEach(reComment -> {
+                CommentDTO reCommentDTO = new CommentDTO(
+                        reComment.getCommentId(),
+                        reComment.getRootComment().getCommentId(),
+                        reComment.getCnt(),
+                        reComment.getRefWriter().getNickname(),
+                        reComment.getWriter().getNickname(),
+                        reComment.getContent(),
+                        reComment.getCreatedAt(),
+                        reComment.getIsDeleted(),
+                        reComment.getBoard().getBoardId()
+                );
+                commentDTOs.add(reCommentDTO);
+            });
         }
         return commentDTOs;
+    }
+
+    public List<CommentDTO> returnMyComments() {
+        //1. 현재 로그인한 유저를 파악한다.
+        Member curUser=getWriter();
+        //2. 유저가 작성한 댓글을 가져온다.
+        //3. 리스트에 댓글을 담는다.
+        List <CommentDTO> commentDTOS=new ArrayList<>();
+        commentRepository.findAllByMemberId(curUser.getId()).forEach((comment)->{
+            if(!comment.isDeleted){
+                CommentDTO commentDTO=new CommentDTO(
+                    comment.getCommentId(),
+                    (long)-1,
+                    (long)-1,
+                    null,
+                    curUser.getNickname(),
+                    comment.getContent(),
+                    comment.getCreatedAt(),
+                    comment.getIsDeleted(),
+                    comment.getBoard().getBoardId()
+                );
+                commentDTOS.add(commentDTO);
+            }
+        });
+
+        reCommentRepository.findAllByMemberId(curUser.getId()).forEach((reComment)->{
+            if(!reComment.isDeleted){
+                CommentDTO reCommentDTO = new CommentDTO(
+                        reComment.getCommentId(),
+                        reComment.getRootComment().getCommentId(),
+                        reComment.getCnt(),
+                        reComment.getRefWriter().getNickname(),
+                        reComment.getWriter().getNickname(),
+                        reComment.getContent(),
+                        reComment.getCreatedAt(),
+                        reComment.getIsDeleted(),
+                        reComment.getBoard().getBoardId()
+                );
+                commentDTOS.add(reCommentDTO);
+            }
+        });
+
+        return commentDTOS;
     }
 }

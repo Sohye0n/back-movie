@@ -57,7 +57,7 @@ public class TokenProvider implements InitializingBean {
               .map(GrantedAuthority::getAuthority)//GrantedAuthority 클래스 내의 getAuthority를 호출하여 이를 스트링 타입으로 변환
               .collect(Collectors.joining(",")); //얻은 스트링들을 ,로 연결한 후 반환
       long now=(new Date()).getTime();
-      Date validity=new Date(now+1*60*1000); //1min
+      Date validity=new Date(now+5*60*1000); //5min
 
       //jwt의 페이로드에 담기는 내용
       //claim: 사용자 권한 정보와 데이터를 일컫는 말
@@ -77,7 +77,7 @@ public class TokenProvider implements InitializingBean {
                 .collect(Collectors.joining(",")); //얻은 스트링들을 ,로 연결한 후 반환
         long now=(new Date()).getTime();
         //Date validity=new Date(now+5*this.tokenValidityInMilliseconds); //10min
-        Date validity=new Date(now+3*60*1000); //3min
+        Date validity=new Date(now+10*60*1000); //10min
         logger.info(validity.toString());
 
         //jwt의 페이로드에 담기는 내용

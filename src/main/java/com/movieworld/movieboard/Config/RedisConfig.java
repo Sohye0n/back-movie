@@ -24,20 +24,21 @@ public class RedisConfig {
 
     @Bean
     public RedisTemplate<String, String> redisTemplate() {
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        RedisTemplate<String, String> redisTemplateForString = new RedisTemplate<>();
+        redisTemplateForString.setConnectionFactory(redisConnectionFactory());
 
         // 일반적인 key:value의 경우 시리얼라이저
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new StringRedisSerializer());
+        redisTemplateForString.setKeySerializer(new StringRedisSerializer());
+        redisTemplateForString.setValueSerializer(new StringRedisSerializer());
 
         // Hash를 사용할 경우 시리얼라이저
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+        redisTemplateForString.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplateForString.setHashValueSerializer(new StringRedisSerializer());
 
         // 모든 경우
-        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
+        redisTemplateForString.setDefaultSerializer(new StringRedisSerializer());
 
-        return redisTemplate;
+        return redisTemplateForString;
     }
+
 }

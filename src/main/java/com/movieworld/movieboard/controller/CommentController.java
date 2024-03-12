@@ -5,9 +5,7 @@ import com.movieworld.movieboard.Service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,18 +18,17 @@ public class CommentController {
     }
 
     @PostMapping("/comment/add/{no}")
-    public ResponseEntity addComment(@RequestBody CommentDTO commentDTO, @PathVariable("no")Long boardId){
-        commentService.addComment(commentDTO,boardId);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public @ResponseBody CommentDTO addComment(@RequestBody CommentDTO commentDTO, @PathVariable("no")Long boardId){
+        return commentService.addComment(commentDTO,boardId);
     }
 
-    @PostMapping("/comment/del/{no}")
+    @GetMapping("/comment/del/{no}")
     public void delComment(@RequestBody Long commentId, @RequestBody Boolean isRef){
         commentService.delComment(commentId,isRef);
     }
 
     @PostMapping("/comment/get/{no}")
-    public List<CommentDTO> getComment(@RequestBody Long boardId){
+    public @ResponseBody List<CommentDTO> getComment(@PathVariable("no") Long boardId){
         return commentService.getComment(boardId);
     }
 }

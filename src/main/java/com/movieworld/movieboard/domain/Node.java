@@ -1,14 +1,9 @@
 package com.movieworld.movieboard.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -26,7 +21,7 @@ public class Node{
     private Board Board;
 
     @Column(name="IS_HUB")
-    private Boolean IsHub;
+    private Boolean IsDeleted;
 
     @Column(name="PHOTOURL",length=500)
     private String PhotoUrl;
@@ -37,10 +32,10 @@ public class Node{
     private String Details;
 
 
-    public Node(@NotNull Long id, Board board, boolean isHub, String photoUrl, String name, String details) {
+    public Node(@NotNull Long id, Board board, boolean isDeleted, String photoUrl, String name, String details) {
         this.NodeId = id;
         this.Board =board;
-        this.IsHub = isHub;
+        this.IsDeleted = isDeleted;
         this.PhotoUrl = photoUrl;
         this.Name = name;
         this.Details = details;

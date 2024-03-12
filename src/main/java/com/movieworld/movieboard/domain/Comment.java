@@ -35,7 +35,7 @@ public class Comment {
     @Column(name="isDeleted")
     public Boolean isDeleted;
 
-    @OneToMany(mappedBy = "rootComment")
+    @OneToMany(mappedBy = "rootComment", fetch=FetchType.EAGER)
     private List<ReComment> reComments;
 
     public Comment(Long cnt, Board board, Member writer, String content, LocalDateTime createdAt, Boolean isDeleted){

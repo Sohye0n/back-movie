@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 public class NodeDTO {
     private Long id;
-    private Board board;
-    private boolean isHub;
+    private Long board;
+    private boolean isDeleted;
     private String photoUrl;
     private String name;
     private String details;
@@ -18,10 +18,10 @@ public class NodeDTO {
     public NodeDTO(){
     }
 
-    public NodeDTO(Long id, Boolean isHub, String photoUrl, String name, String details){
+    public NodeDTO(Long id, Boolean isDeleted, String photoUrl, String name, String details){
         this.id=id;
-        this.board=null;
-        this.isHub=isHub;
+        this.board= Long.valueOf(-1);
+        this.isDeleted=isDeleted;
         this.photoUrl=photoUrl;
         this.name=name;
         this.details=details;
@@ -29,10 +29,10 @@ public class NodeDTO {
         this.type=-1;
     }
 
-    public NodeDTO(int type, Long id,boolean isHub, String photoUrl, String name, String details){
+    public NodeDTO(int type, Long id,boolean isDeleted, String photoUrl, String name, String details){
         this.type=type;
         this.id=id;
-        this.isHub=isHub;
+        this.isDeleted=isDeleted;
         this.photoUrl =photoUrl;
         this.name=name;
         this.details=details;

@@ -17,8 +17,10 @@ public class CommentDTO {
     public Long commentId;
     public Long rootId;
     public Long cnt;
-    public Member writer;
+    public String refWriter;
+    public String writer;
     public String content;
     public LocalDateTime createdAt;
     public Boolean isDeleted;
+    public Long board;
 }

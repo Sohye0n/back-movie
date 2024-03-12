@@ -78,7 +78,8 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/board/view/**").hasAnyRole("USER")
+                //.requestMatchers("/board/view/**").hasAnyRole("USER")
+                //.requestMatchers("/comment/**").hasAnyRole("USER")
                 .requestMatchers("/newBoard").hasAnyRole("USER")
                 .requestMatchers("/network/**").hasAnyRole("USER")
                 .anyRequest().permitAll()

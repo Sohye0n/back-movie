@@ -14,7 +14,7 @@ public class BoardDTO {
 
     public Long id;
     public Long tmdbid;
-    public Member writer;
+    public String writer;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     public String title;
@@ -25,7 +25,7 @@ public class BoardDTO {
     public List<NodeDTO> nodes;
     public List<EdgeDTO> edges;
 
-    public BoardDTO(Long id, Long tmdbid, Member writer, LocalDateTime createdAt, LocalDateTime updatedAt, String title, String content, int views, Boolean isPrivate, Boolean isTv){
+    public BoardDTO(Long id, Long tmdbid, String writer, LocalDateTime createdAt, LocalDateTime updatedAt, String title, String content, int views, Boolean isPrivate, Boolean isTv){
         this.id=id;
         this.tmdbid=tmdbid;
         this.writer=writer;

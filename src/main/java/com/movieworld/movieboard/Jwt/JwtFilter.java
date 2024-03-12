@@ -82,8 +82,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 Long expirationTime=tokenProvider.getExpirationTime(refreshToken);
                 Long currentTime=System.currentTimeMillis();
 
-                //1분 안에 만료될 예정이라면 재발급한다.
-                if(expirationTime-currentTime<1*60*1000){
+                //3분 안에 만료될 예정이라면 재발급한다.
+                if(expirationTime-currentTime<3*60*1000){
                     logger.info("refreshToken is about to expire");
                     String refreshJwt=tokenProvider.createRefreshToken(authentication);
                     response.setHeader("Set-Cookie",
