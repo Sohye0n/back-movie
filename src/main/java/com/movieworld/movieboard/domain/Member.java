@@ -24,8 +24,7 @@ public class Member {
     private String pw;
 
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="board")
+    @OneToMany(mappedBy = "writer") //column이름으로!
     private List<Board> boards=new ArrayList<>();
 
     @ManyToMany

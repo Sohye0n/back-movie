@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NodeEditService {
@@ -25,41 +26,45 @@ public class NodeEditService {
     }
 
     public void EditNode(List<NodeDTO> nodelist, Long BoardID) throws Exception {
-        System.out.println("EditNode is running...");
         for(int i=0; i<nodelist.size(); i++){
             NodeDTO curNode=nodelist.get(i);
-            System.out.println(curNode.getId());
             int type=curNode.getType();
+            //check if board is valid
+            Board board=boardRepository.findById(BoardID).orElseThrow(()->new Exception());
 
             //add
             if(type==0){
-                Board board=boardRepository.findById(BoardID).orElseThrow(()->new Exception());
-                Node newNode=new Node(curNode.getId(), board, curNode.isHub(),curNode.getPhotoUrl(),curNode.getAuthorID(),curNode.getName(),curNode.getDetails());
-                System.out.println(newNode.getId());
+                Node newNode=new Node(curNode.getId(), board, curNode.isDeleted(),curNode.getPhotoUrl(),curNode.getName(),curNode.getDetails());
                 nodeRepository.save(newNode);
             }
 
-            //delete
+            //edit
             else if(type==1){
-                Node delNode=nodeRepository.findById(curNode.getId()).orElseThrow(()->new IllegalStateException("존재하지 않는 노드"));
-                nodeRepository.delete(delNode);
+                Node updateNode=nodeRepository.findById(curNode.getId()).orElseThrow(()->new IllegalStateException("존재하지 않는 노드"));
+                updateNode.updateName(curNode.getName());
+                updateNode.updateDetail(curNode.getDetails());
+                nodeRepository.save(updateNode);
             }
 
-            //update
-            else if(nodelist.get(i).getType()==2){
-                Node updateNode=nodeRepository.findById(curNode.getId()).orElseThrow(()->new IllegalStateException("존재하지 않는 노드"));
-                updateNode.update(curNode.isHub(), curNode.getPhotoUrl(), curNode.getAuthorID(), curNode.getName(), curNode.getDetails());
-                nodeRepository.save(updateNode); //똑같이 save를 호출해도 내부적으로 업데이트로 처리해줌.
+            //delete
+            else if(type==2){
+                Node newNode=new Node(curNode.getId(), board, curNode.isDeleted(),"","","");
+                nodeRepository.save(newNode);
             }
         }
     }
 
-    public ArrayList<Node> GetNode(Long BoardID){
-        ArrayList<Node>nodelist= (ArrayList<Node>) nodeRepository.findByBoard(BoardID);
-        System.out.println("node edit service is running...\n");
-        for (Node node:nodelist) {
-            System.out.println(node.getId());
-        }
-        return nodelist;
+    public List<NodeDTO> GetNode(Long BoardID){
+        List<Node>nodelist= nodeRepository.findByBoard(BoardID);
+        List<NodeDTO>nodeDTOList=nodelist.stream().
+                map(node->new NodeDTO(
+                        node.getNodeId(),
+                        node.getIsDeleted(),
+                        node.getPhotoUrl(),
+                        node.getName(),
+                        node.getDetails()
+                ))
+                .collect(Collectors.toList());
+        return nodeDTOList;
     }
 }

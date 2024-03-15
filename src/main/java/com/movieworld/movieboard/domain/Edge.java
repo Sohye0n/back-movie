@@ -2,28 +2,54 @@ package com.movieworld.movieboard.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 
 @Entity
 @Getter
-public class Edge {
+@NoArgsConstructor
+@IdClass(EdgeId.class)
+public class Edge{
     @Id
     @NotNull
-    private Long Id;
+    @Column(name="EdgeId")
+    public Long EdgeId;
 
-    @OneToOne
-    private Node From;
-    @OneToOne
-    private Node To;
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="BoardID")
+    private Board Board;
+    private Long ToNode;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumns({
+//            @JoinColumn(name = "Edge_id_From"),
+//            @JoinColumn(name = "Board_id_From")
+//    })
+    private Long FromNode;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumns({
+//            @JoinColumn(name = "Edge_id_To"),
+//            @JoinColumn(name = "Board_id_To")
+//    })
 
-    @ManyToOne
-    private Board board;
+    private String Details;
 
     @Builder
-    public Edge(Node from, Node to){
-        this.From=from;
-        this.To=to;
+    public Edge(Long id, Long from, Long to, String details, Board board){
+        EdgeId=id;
+        FromNode=from;
+        ToNode=to;
+        Details=details;
+        Board=board;
+    }
+
+    public void updateDetail(String details){
+        this.Details =details;
     }
 
 }
+

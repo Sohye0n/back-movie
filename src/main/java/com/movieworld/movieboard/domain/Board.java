@@ -3,7 +3,6 @@ package com.movieworld.movieboard.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
@@ -13,21 +12,19 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@SequenceGenerator(
-        name="BoardID_Sequence_Generator",
-        sequenceName = "BoardID_Sequence",
-        initialValue = 1,
-        allocationSize = 1
-)
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY,generator = "BoardID_Sequence")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @Column(name="ID")
-    private Long id;
+    @Column(name="BoardID")
+    public Long BoardId;
 
-    @Column(name="WRITERNAME")
-    private String WriterName;
+    @Column(name="TMDBId")
+    private Long tmdbId;
+
+    @ManyToOne
+    @JoinColumn(name="writer")
+    private Member writer;
 
     @Column(name="CREATEDAT")
     private LocalDateTime createdAt;
@@ -45,22 +42,30 @@ public class Board {
     private int views;
 
     @Column(name="ISPRIVATE")
-    private boolean isPrivate;
+    private Boolean isPrivate;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="node")
+    @Column(name="ISTV")
+    private Boolean isTv;
+
+    @OneToMany(mappedBy = "Board")
     private List<Node> nodes=new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name="edge")
+    @OneToMany(mappedBy = "Board")
     private List<Edge> edges=new ArrayList<>();
 
-    public Board(String title, String content, boolean isprivate) {
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comments=new ArrayList<>();
+
+    public Board(Long tmdbid, Member writer, String title, LocalDateTime now, LocalDateTime localDateTime, String content, String boardDTOContent, int i, boolean isprivate, Boolean isTv) {
+        this.writer=writer;
+        this.createdAt=LocalDateTime.now();
+        this.updatedAt=LocalDateTime.now();
+        this.tmdbId =tmdbid;
         this.title=title;
         this.content=content;
         this.isPrivate=isprivate;
-        this.createdAt=LocalDateTime.now();
-        this.updatedAt=LocalDateTime.now();
         this.views=0;
+        this.isTv=isTv;
     }
+
 }

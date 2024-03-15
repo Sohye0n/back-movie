@@ -1,0 +1,16 @@
+--CREATE TABLE IF NOT EXISTS node (
+--    id LONG PRIMARY KEY,
+--    board_id LONG FOREIGN KEY,
+--    isHub BOOL,
+--    photoURL VARCHAR(255),
+--    name VARCHAR(40),
+--    details VARCHAR(40)
+--);
+--
+--CREATE TABLE IF NOT EXISTS edge (
+--    id LONG PRIMARY KEY,
+--    fromNode LONG FOREIGN KEY,
+--    toNode LONG FOREIGN KEY,
+--    board_id LONG FOREIGN KEY,
+--    details VARCHAR(40)
+--);

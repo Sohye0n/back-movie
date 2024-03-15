@@ -7,9 +7,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface NodeRepository extends JpaRepository<Node,String> {
+public interface NodeRepository extends JpaRepository<Node,Long> {
 
     @Query("SELECT a FROM Node a WHERE a.Board.id = :id")
     List<Node> findByBoard(Long id);
+
+    @Query("SELECT a FROM Node a WHERE a.Board.id = :boardid AND a.NodeId= :id")
+    Node findByIdAndBoard(Long id, Long boardid);
 
 }
